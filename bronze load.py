@@ -44,6 +44,7 @@ def main():
 
     data_schema = StructType([
         StructField("user_id", IntegerType(), True),
+        STructField("UID", StringType(), True),
         StructField("ts", TimestampType(), True),
         StructField("session_id", StringType(), True),
         StructField("page", StringType(), True),
@@ -88,6 +89,7 @@ def main():
             continue
         files_to_load.append(file)
         temp = temp.withColumn("is_loaded", lit(0))
+        temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts")))
         temp = temp.withColumn("created_on", current_timestamp())
         temp = temp.withColumn("file_name", lit(file.split('/')[-1]))
         current_files_temp_df = current_files_temp_df.unionByName(temp)
