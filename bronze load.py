@@ -89,11 +89,11 @@ def main():
             continue
         files_to_load.append(file)
         temp = temp.withColumn("is_loaded", lit(0))
-        temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts")))
         temp = temp.withColumn("created_on", current_timestamp())
         temp = temp.withColumn("file_name", lit(file.split('/')[-1]))
+        temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts","device_type","file_name")))
         current_files_temp_df = current_files_temp_df.unionByName(temp)
-        print(f"Loading file: {file}")
+        print(f"Loading file: {file}") 
 
     # Write to table
     '''
