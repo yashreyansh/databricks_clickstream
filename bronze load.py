@@ -44,7 +44,7 @@ def main():
 
     data_schema = StructType([
         StructField("user_id", IntegerType(), True),
-        STructField("UID", StringType(), True),
+        StructField("UID", StringType(), True),
         StructField("ts", TimestampType(), True),
         StructField("session_id", StringType(), True),
         StructField("page", StringType(), True),
