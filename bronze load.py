@@ -91,7 +91,7 @@ def main():
         temp = temp.withColumn("is_loaded", lit(0))
         temp = temp.withColumn("created_on", current_timestamp())
         temp = temp.withColumn("file_name", lit(file.split('/')[-1]))
-        temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts","device_type","file_name")))
+        temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts","device_type","file_name","latency")))
         current_files_temp_df = current_files_temp_df.unionByName(temp)
         print(f"Loading file: {file}") 
 
