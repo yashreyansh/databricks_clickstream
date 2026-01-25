@@ -93,6 +93,9 @@ def main():
         temp = temp.withColumn("file_name", lit(file.split('/')[-1]))
         temp = temp.withColumn("UID",md5(concat_ws("|", "user_id", "ts","device_type","file_name","latency_ms")))
         current_files_temp_df = current_files_temp_df.unionByName(temp)
+        # fetching unique values
+        current_files_temp_df = current_files_temp_df.dropDuplicates(["UID"])
+
         print(f"Loading file: {file}") 
 
     # Write to table
